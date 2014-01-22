@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 namespace ClassLibrary
 {
     public class Address
-    {
+    {   
+        /// <summary>
+        /// Ejemplo
+        /// </summary>
+
         string _street;
         string _number;
         string _town;        
