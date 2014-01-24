@@ -42,6 +42,7 @@
     <Compile Include="Address.cs" />
     <Compile Include="BankAccount.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="Eventos.cs" />
     <Compile Include="Member.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
