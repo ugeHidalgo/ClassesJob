@@ -4,32 +4,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ClassLibrary
 {
-    class BankAccount
+    public class BankAccount
     {
         decimal _amount;
+        decimal _amountMinAllowed = 10;
 
-        decimal Amount { get { return _amount; } set { _amount = value; } }
-
-        public delegate void CheckAmountEventHandler(object sender, EventArgs e);
-
-        public event CheckAmountEventHandler CheckAmount;
-
-        public BankAccount()
+        public decimal Amount
         {
-            _amount = 0;
+            get { return _amount; }
+            set
+            {
+                if (value != _amount)
+                {
+                    _amount = value;
+                    //Total amount changed
+                    AmountChanged(_amount, null);
+                    if (_amount<_amountMinAllowed)                    
+                        //Total amount bellow minimum allowed
+                        AmountCritical(_amount, null);                    
+                    else
+                        //Total amount over minimum allowed
+                        AmountNormal(_amount, null);                    
+                }
+            }
         }
 
-        public void Add(decimal cant)
+        public event EventHandler AmountBellowCero;
+        public event EventHandler AmountChanged;
+        public event EventHandler AmountCritical;
+        public event EventHandler AmountNormal;
+
+        public int Add(decimal cant)
         {
-            _amount += cant;
+            Amount += cant;
+            return 0;
         }
 
 
-        public void Substract(decimal cant)
+        public int Substract(decimal cant)
         {
-            _amount -= cant;
+
+            if (Amount - cant < 0)
+                AmountBellowCero(Amount, null);
+            else
+                Amount -= cant;
+            return 0;
         }
     }
 }
